@@ -1,0 +1,10 @@
+{
+    "defaults": {
+        "source": "path/to/source",
+        "destination": "path/to/destination"
+    },
+    "ignore": [
+        "example1.txt",
+        "example2.txt"
+    ]
+}

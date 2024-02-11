@@ -5,8 +5,7 @@ An automated script to backup my computer's data into a hard drive.
 
 - Ask source and destination folder
 - Notice changes in files and folders and prompt before updating backup folder
-- Show overall backup progress and progress of copying current file or folder
-- Read defaults and files to ignore from a json file
+- Read defaults and files to ignores from a json file
 
 ## To run the script
 
