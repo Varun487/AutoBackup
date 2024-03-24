@@ -70,7 +70,7 @@ def perform_file_operation(operation, file_path, source, destination, permission
         return
     if operation == 'create' or operation == 'update':
         shutil.copy2(os.path.join(source, file_path), os.path.join(destination, file_path))
-    elif operation == 'delete':
+    elif operation == 'delete' and os.path.exists(os.path.join(destination, file_path)):
         os.remove(os.path.join(destination, file_path))
     print(f'[{operation}]: {file_path}')
 
@@ -99,6 +99,7 @@ def create_new_folders(source, destination, ignores, prompt):
                     print(f'[create]: {folder_relative_path}')
 
 def delete_empty_folders(source, destination, prompt):
+    del_count = 0
     for root, _, files in os.walk(destination):
         folder_relative_path = os.path.relpath(root, destination)
         folder_source_path = os.path.join(source, folder_relative_path)
@@ -110,6 +111,8 @@ def delete_empty_folders(source, destination, prompt):
             if permission:
                 os.rmdir(root)
                 print(f'[delete]: {folder_relative_path}')
+                del_count += 1
+    return del_count
 
 def backup_data(source, destination, ignores, prompt=False):
     try:
@@ -142,7 +145,9 @@ def backup_data(source, destination, ignores, prompt=False):
         print()
 
         # Delete empty folders
-        delete_empty_folders(source, destination, prompt)
+        del_count = delete_empty_folders(source, destination, prompt)
+        while del_count > 0:
+            del_count = delete_empty_folders(source, destination, prompt)
 
         print()
         print(f"Backup completed successfully to {destination}!")
