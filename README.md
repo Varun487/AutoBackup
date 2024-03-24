@@ -3,9 +3,15 @@ An automated script to backup my computer's data into a hard drive.
 
 ## Functions
 
-- Ask source and destination folder
-- Notice changes in files and folders and prompt before updating backup folder
-- Read defaults and files to ignores from a json file
+- Read default values and files to ignores from a json file
+- Ask source and destination folder and whether to prompt before performing operations
+- Build a dictionary with all destination file paths
+    - Keys: File paths
+    - Values: Operations (default `delete`)
+- Walk through all paths in source, compare files with paths in dictionary and update operations for each path
+    - Operations: `create`, `update`, `skip`
+    - Ignore files mentioned in json
+- Perform operations for each file path present in dictionary
 
 ## To run the script
 
